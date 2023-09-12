@@ -41,9 +41,10 @@
 
     <div class="treanding-wrapper">      
         <h3>Trending Products</h3>
+        
 
             @foreach($products as $item)
-            <div class="trending-items">
+            <div class="trending-items"  style="text-align: center;">
             <a href="detail/{{$item['id']}}">
             <img class="trending-image" src="{{$item['gallery']}}" >
             <div class="">

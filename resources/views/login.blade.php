@@ -2,9 +2,9 @@
 @section("content")
 
 
-<div class="container custom-login">
+<div class="container custom-login" >
 
-<blockquote class="blockquote text-center">
+<blockquote class="blockquote text-center" >
   <p class="mb-0">Loging</p>
 </blockquote>
     <div class="row ">
@@ -26,4 +26,5 @@
         </div>
     </div>
 </div>
+
 @endsection

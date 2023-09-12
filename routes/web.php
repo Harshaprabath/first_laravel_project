@@ -18,6 +18,9 @@ use App\Http\Controllers\ProductController;
 Route::get('/login', function () {
     return view('login');
 });
+Route::get('/sinup', function () {
+    return view('sinup');
+});
 
 Route::get('/logout', function () {
     Session::forget('user');
@@ -32,3 +35,4 @@ Route::get("/cartlist",[ProductController::class,'cartlist']);
 Route::get("/removecart/{id}",[ProductController::class,'removeCart']);
 Route::get("/odernow",[ProductController::class,'oderNow']);
 Route::post("/oderplace",[ProductController::class,'oderPlace']);
+Route::post("/sinup",[UserController::class,'sinup']);
