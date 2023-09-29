@@ -8,6 +8,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use Session;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     //
@@ -20,7 +21,8 @@ class ProductController extends Controller
     function detail($id)
     {
         $data = Product::find($id);
-        return view('detail',['product'=> $data]);
+        $isEdit = false;
+        return view('detail', ['product' => $data, 'edit' => $isEdit]);
     }
 
     function addToCart(Request $req)
@@ -99,5 +101,62 @@ class ProductController extends Controller
         $req->input();
         return redirect('/');
     }
+   
     
+    function addproduct(Request $req)
+    {
+        $product = new Product;
+        $product->name = $req->name;
+        $product->price = $req->price;
+        $product->category = $req->category;
+        $product->description = $req->description;             
+        $product->gallery =  $req-> gallery;   
+        $product->save();
+        
+        return redirect('/addproduct')->with('success', 'Product added successfully');
+    }
+
+    function deleteproduct($id)
+    {
+       
+       Product::destroy($id);
+       return redirect('/');
+        
+    }
+
+    
+    function editproductdetails($id)
+    {
+        $data = Product::find($id);
+        $isEdit = true;
+        return view('detail', ['product' => $data, 'edit' => $isEdit]);
+        
+    }
+
+    function editproduct(Request $req)
+    {
+        $product = Product::find($req -> id);
+
+        $product->name = $req->name;
+        $product->price = $req->price;
+        $product->category = $req->category;
+        $product->description = $req->description;             
+        $product->gallery = $req->gallery;   
+    
+        
+        $product->save();
+        return $this->detail($req -> id);
+           
+    }
+
+    function search(Request $req)
+    {   
+        $name = $req->search;
+
+        $data = Product::where('name', 'LIKE', '%' . $name . '%')->get();
+       
+        return view('product',['products'=>$data]);
+           
+    }
+       
 }

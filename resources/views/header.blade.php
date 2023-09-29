@@ -42,9 +42,10 @@ if(Session::has('user'))
           </ul>
         </li>
       </ul>
-      <form class="navbar-form navbar-left">
+      <form class="navbar-form navbar-left" action="/search">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          @csrf
+          <input type="text" class="form-control" name="search" placeholder="Search">
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
@@ -54,7 +55,10 @@ if(Session::has('user'))
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Session::get('user')['name']}} <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+              @if(Session::has('user') && Session::get('user')->isAdmin)
+              <li><a href="/addproduct"><span class="fa fa-plus"></span> Add Product</a></li>
+              @endif
+              <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
          </ul>
         </li>
         @else
